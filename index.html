@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit · Hand-controlled Solar System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-black text-white overflow-hidden select-none">
+  <!-- 3D scene -->
+  <div id="scene" class="fixed inset-0"></div>
+  <div class="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,.55)_100%)]"></div>
+
+  <!-- floating labels + on-screen hand -->
+  <div id="labels" class="pointer-events-none fixed inset-0 z-10"></div>
+  <canvas id="handlayer" class="pointer-events-none fixed inset-0 z-20"></canvas>
+  <div id="cursor" class="pointer-events-none fixed left-0 top-0 z-30 opacity-0 transition-opacity duration-300">
+    <svg width="72" height="72" viewBox="0 0 72 72" class="-translate-x-1/2 -translate-y-1/2">
+      <circle cx="36" cy="36" r="18" class="ring-outer" />
+      <circle cx="36" cy="36" r="18" class="ring-progress" pathLength="100" />
+      <circle cx="36" cy="36" r="4" class="ring-dot" />
+    </svg>
+  </div>
+
+  <!-- top bar -->
+  <header class="fixed top-0 inset-x-0 z-40 flex items-start justify-between p-6 pointer-events-none">
+    <div class="glass rounded-2xl px-5 py-3 pointer-events-auto">
+      <div class="font-display text-lg tracking-[0.3em]">ORBIT</div>
+      <div class="text-[11px] tracking-widest text-sky-300/80 uppercase">hand-controlled solar system</div>
+    </div>
+    <div id="legend" class="flex gap-2">
+      <div data-g="aim"   class="legend glass rounded-2xl px-4 py-3 text-center"><div class="text-2xl">✋</div><div class="text-xs mt-1 text-slate-300">Move<br/>to aim</div></div>
+      <div data-g="pinch" class="legend glass rounded-2xl px-4 py-3 text-center"><div class="text-2xl">🤏</div><div class="text-xs mt-1 text-slate-300">Pinch<br/>fly in</div></div>
+      <div data-g="fist"  class="legend glass rounded-2xl px-4 py-3 text-center"><div class="text-2xl">✊</div><div class="text-xs mt-1 text-slate-300">Fist<br/>back out</div></div>
+    </div>
+  </header>
+
+  <!-- title card -->
+  <section id="title" class="fixed left-8 bottom-10 z-40 max-w-xl transition-all duration-700 pointer-events-none">
+    <div id="kind" class="text-xs tracking-[0.45em] uppercase text-sky-300"></div>
+    <h1 id="name" class="font-display font-extrabold text-5xl md:text-7xl tracking-wide mt-2 drop-shadow-[0_0_30px_rgba(96,165,250,.45)]"></h1>
+    <p id="desc" class="mt-4 text-slate-300 font-light leading-relaxed"></p>
+    <div id="facts" class="mt-4 flex flex-wrap gap-2"></div>
+  </section>
+
+  <!-- camera card -->
+  <aside id="camcard" class="fixed right-6 bottom-6 z-40 w-72 hidden">
+    <div class="glass rounded-2xl overflow-hidden">
+      <div class="relative aspect-[4/3] bg-black">
+        <video id="video" class="absolute inset-0 w-full h-full object-cover -scale-x-100 brightness-75" autoplay playsinline muted></video>
+        <canvas id="camoverlay" class="absolute inset-0 w-full h-full -scale-x-100"></canvas>
+      </div>
+      <div class="flex items-center gap-2 px-4 py-3">
+        <span id="dot" class="h-2.5 w-2.5 rounded-full bg-amber-400 animate-pulse"></span>
+        <span id="status" class="text-sm text-slate-200">Starting camera…</span>
+        <span id="fps" class="ml-auto text-[10px] text-slate-500"></span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- intro -->
+  <div id="intro" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[radial-gradient(circle,#0b1736,#000_70%)] transition-opacity duration-1000">
+    <div class="text-xs tracking-[0.6em] text-sky-300 mb-4">INTERACTIVE · WEBCAM</div>
+    <h1 class="font-display font-extrabold text-6xl md:text-8xl tracking-[0.15em] text-center">ORBIT</h1>
+    <p class="mt-4 text-slate-400 text-center max-w-md">Explore the Sun, planets, moons and satellites with nothing but your hand.</p>
+    <button id="enter" class="mt-10 rounded-full border border-sky-300/60 bg-sky-500/20 px-12 py-4 font-display tracking-[0.3em] shadow-[0_0_40px_rgba(56,189,248,.35)] hover:bg-sky-500/30 transition">ENTER</button>
+    <p class="mt-6 text-xs text-slate-500">No camera? Click planets, scroll to zoom, Esc for overview, ← → to browse.</p>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

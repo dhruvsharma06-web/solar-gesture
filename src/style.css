@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Orbitron", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+.glass {
+  background: rgba(10, 18, 40, 0.55);
+  border: 1px solid rgba(125, 190, 255, 0.18);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+}
+
+.legend { transition: transform .25s, background .25s, border-color .25s; }
+.legend.active { background: rgba(56, 132, 255, .38); border-color: rgba(147, 210, 255, .9); transform: translateY(-2px) scale(1.06); }
+
+#title.hide { opacity: 0; transform: translateY(16px); }
+
+.label {
+  position: absolute; left: 0; top: 0; white-space: nowrap;
+  font-size: 11px; letter-spacing: .14em; color: #cfe0ff;
+  text-shadow: 0 0 6px #000, 0 0 2px #000; transition: opacity .3s, color .2s;
+  margin: 12px 0 0 12px;
+}
+.label.major { font-size: 13px; font-weight: 500; text-transform: uppercase; }
+.label.hot { color: #fff; font-size: 15px; text-shadow: 0 0 12px #3b82f6, 0 0 2px #000; }
+
+#cursor circle { fill: none; stroke-width: 2.5; transition: stroke .2s, r .2s; }
+#cursor .ring-outer { stroke: rgba(147, 210, 255, .95); }
+#cursor .ring-dot { fill: #fff; stroke: none; }
+#cursor .ring-progress { stroke: #fb923c; stroke-width: 4; stroke-dasharray: 100; stroke-dashoffset: 100; transform: rotate(-90deg); transform-origin: center; }
+#cursor[data-state="pinch"] .ring-outer { stroke: #86efac; r: 10; }
+#cursor[data-state="fist"] .ring-outer { stroke: #fdba74; }
+#cursor[data-state="hover"] .ring-outer { stroke: #fff; r: 22; }
